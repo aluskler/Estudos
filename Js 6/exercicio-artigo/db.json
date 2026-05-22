@@ -1,0 +1,23 @@
+{
+  "articles": [
+    {
+      "id": "1",
+      "title": "Olá, mundo!",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam minus inventore voluptatem, eum repellat sed officiis aliquam",
+      "author": "Aluskler"
+    },
+    {
+      "id": "2",
+      "title": "Requisições POST com Javascript",
+      "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam minus inventore voluptatem, eum repellat sed officiis aliquam",
+      "author": "Aluskler"
+    },
+    {
+      "title": "Games",
+      "content": "asdasdasdasdasd",
+      "author": "Aluskler",
+      "id": "XDkZh3OX4yI"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

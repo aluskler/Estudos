@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="index.js" defer></script>
+    <title>Requisições POST com Javascript</title>
+  </head>
+  <body>
+    <main>
+      <form>
+        <h2>Escrever um Artigo</h2>
+        <div>
+          <label for="titulo">Título:</label>
+          <br />
+          <input type="text" id="titulo" name="titulo" />
+          <br />
+        </div>
+
+        <div>
+          <label for="autor">Autor:</label>
+          <br />
+          <input type="text" id="autor" name="autor" />
+          <br />
+        </div>
+
+        <div>
+          <label for="conteudo">Conteudo:</label>
+          <br />
+          <input type="text" id="conteudo" name="conteudo" />
+        </div>
+        <button type="submit">Salvar</button>
+      </form>
+
+      <div>
+        <section id="artigos">
+          <h2>Artigos</h2>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
