@@ -1,0 +1,45 @@
+{
+  "transferencias": [
+    {
+      "titulo": "games",
+      "valor": -200,
+      "id": "jjp53VuuUlo"
+    },
+    {
+      "titulo": "game",
+      "valor": -120,
+      "id": "xH4UScaO2k4"
+    },
+    {
+      "titulo": "Games",
+      "valor": -100,
+      "id": "xqT1Mu0eVCA"
+    },
+    {
+      "titulo": "trabalho",
+      "valor": 1000,
+      "id": "py6xkJVsH_A"
+    },
+    {
+      "titulo": "Games",
+      "valor": -100,
+      "id": "3FZjzcIZC5E"
+    },
+    {
+      "titulo": "Games",
+      "valor": -100,
+      "id": "92ERAZRmRoQ"
+    },
+    {
+      "titulo": "Games",
+      "valor": -100,
+      "id": "9ilRVY-2kzk"
+    },
+    {
+      "titulo": "Games",
+      "valor": -100,
+      "id": "4sqmyrU9XJc"
+    }
+  ],
+  "$schema": "./node_modules/json-server/schema.json"
+}

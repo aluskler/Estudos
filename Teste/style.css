@@ -1,0 +1,243 @@
+/* =========================================
+   Reset e Configurações Gerais
+   ========================================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #121418; /* Fundo principal bem escuro */
+  color: #e2e8f0; /* Texto claro, mas não branco puro para não cansar a vista */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+/* =========================================
+   Layout dos Paineis (Formulário e Histórico)
+   ========================================= */
+form,
+#saldo-historico {
+  background-color: #1e2128; /* Fundo dos cartões um pouco mais claro que o body */
+  width: 100%;
+  max-width: 500px;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  margin-bottom: 24px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: #ffffff;
+  border-bottom: 1px solid #2d313a;
+  padding-bottom: 8px;
+}
+
+/* Destaque do Saldo */
+#span-saldo {
+  color: #6366f1; /* Roxo/Azul vibrante para destacar o saldo geral */
+  font-size: 1.8rem;
+}
+
+/* =========================================
+   Estilização do Formulário
+   ========================================= */
+label {
+  display: block;
+  font-size: 0.9rem;
+  color: #94a3b8;
+  margin-bottom: 6px;
+  margin-top: 12px;
+}
+
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  background-color: #0f1115;
+  border: 1px solid #333842;
+  color: #ffffff;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #6366f1; /* Brilha ao clicar */
+}
+
+/* Controle de Valor (+ e -) */
+.controle-valor {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.controle-valor input {
+  text-align: center;
+  font-weight: bold;
+}
+
+.btn-mais,
+.btn-menos {
+  background-color: #2d313a;
+  color: #ffffff;
+  border: none;
+  width: 45px;
+  height: 45px;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-mais:hover,
+.btn-menos:hover {
+  background-color: #4b5563;
+}
+
+#botao-salvar {
+  width: 100%;
+  background-color: #6366f1; /* Cor de ação primária */
+  color: #ffffff;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 20px;
+  transition:
+    background-color 0.3s,
+    transform 0.1s;
+}
+
+#botao-salvar:hover {
+  background-color: #4f46e5;
+}
+
+#botao-salvar:active {
+  transform: scale(0.98); /* Efeito de afundar ao clicar */
+}
+
+/* =========================================
+   Lista de Transações
+   ========================================= */
+#transacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  max-height: 320px; /* Altura máxima da lista antes de começar a rolar */
+  overflow-y: auto; /* Ativa o scroll vertical automaticamente se passar da altura */
+  padding-right: 8px; /* Espaço extra para a barra de rolagem não cobrir o conteúdo */
+}
+/* =========================================
+   Estilização Customizada da Barra de Rolagem
+   ========================================= */
+
+/* Espaço total da barra de rolagem */
+#transacoes::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* O fundo por onde a barra corre */
+#transacoes::-webkit-scrollbar-track {
+  background: #1e2128;
+  border-radius: 10px;
+}
+
+/* O indicador que o usuário arrasta */
+#transacoes::-webkit-scrollbar-thumb {
+  background: #3d4455;
+  border-radius: 10px;
+  transition: background-color 0.2s;
+}
+
+/* Quando o usuário passa o mouse na barra */
+#transacoes::-webkit-scrollbar-thumb:hover {
+  background: #6366f1; /* Fica roxa igual ao botão salvar */
+}
+
+.transacao-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #262a33;
+  padding: 16px;
+  border-radius: 8px;
+  border-left: 4px solid #4b5563; /* Borda padrão neutra */
+  transition: transform 0.2s;
+}
+
+.transacao-container:hover {
+  transform: translateY(-2px); /* Efeito de flutuar ao passar o mouse */
+}
+
+.transacao-titulo {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #f8fafc;
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* Cores Semânticas (Dinheiro) */
+.valor-credito {
+  color: #34d399; /* Verde Neon */
+  font-weight: bold;
+}
+
+.valor-debito {
+  color: #f87171; /* Vermelho Pastel */
+  font-weight: bold;
+}
+
+/* Modificando a borda lateral baseada na classe do valor */
+.transacao-container:has(.valor-credito) {
+  border-left-color: #34d399;
+}
+
+.transacao-container:has(.valor-debito) {
+  border-left-color: #f87171;
+}
+
+/* =========================================
+   Botões de Ação (Editar e Remover)
+   ========================================= */
+.transacao-botoes {
+  display: flex;
+  gap: 8px;
+}
+
+.botao-editar,
+.botao-remover {
+  background-color: transparent;
+  border: 1px solid #4b5563;
+  color: #cbd5e1;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: all 0.2s;
+}
+
+.botao-editar:hover {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+  color: white;
+}
+
+.botao-remover:hover {
+  background-color: #ef4444;
+  border-color: #ef4444;
+  color: white;
+}

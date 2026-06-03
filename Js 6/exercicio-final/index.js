@@ -3,14 +3,14 @@ let transacoes = [];
 function criarConteinerDaTransacao(id) {
   const conteiner = document.createElement("div");
   conteiner.classList.add("conteiner-Transacao");
-  conteiner.id = `Transação ${id}`;
+  conteiner.id = `transacoes-${id}`;
   return conteiner;
 }
 
 function criarTitularDaTransacao(nome) {
   const titular = document.createElement("span");
   titular.classList.add("titular-Transacao");
-  titular.textContent = nome;
+  titular.textContent = nome + ":";
   return titular;
 }
 
@@ -41,23 +41,48 @@ function criarBotaoEditarTransacao(transacao) {
 
   botaoEditar.addEventListener("click", () => {
     document.querySelector("#id").value = transacao.id;
-    document.querySelector("#nome").value = transacao.nome;
+    document.querySelector("#nome").value = transacao.name;
     document.querySelector("#valor").value = transacao.amount;
   });
 
   return botaoEditar;
 }
 
+function criarBotaoRemoverTransacao(id) {
+  const botao = document.createElement("button");
+  botao.classList.add("botao-remover-transacao");
+  botao.textContent = "Excluir";
+
+  botao.addEventListener("click", async () => {
+    await fetch(`http://localhost:3000/transactions/${id}`, {
+      method: "DELETE",
+    });
+
+    botao.parentElement.remove();
+
+    const indexToRemove = transacoes.findIndex((i) => i.id == id);
+    transacoes.splice(indexToRemove, 1);
+    atualizarValor();
+  });
+  return botao;
+}
+
 function renderizarTransacao(transacao) {
   const conteiner = criarConteinerDaTransacao(transacao.id);
+
+  const conjuntoTituValor = document.createElement("div");
+  conjuntoTituValor.classList.add("conjunto-titular-valor");
+
   const titular = criarTitularDaTransacao(transacao.name);
   const valor = criarValorDaTransacao(transacao.amount);
   const botaoEditarTransacao = criarBotaoEditarTransacao(transacao);
+  const botaoRemoverTransacao = criarBotaoRemoverTransacao(transacao.id);
 
+  conjuntoTituValor.append(titular, valor);
   document
     .querySelector("#transacoes")
     .appendChild(conteiner)
-    .append(titular, valor, botaoEditarTransacao);
+    .append(conjuntoTituValor, botaoEditarTransacao, botaoRemoverTransacao);
 }
 
 async function buscarTransacoes() {
@@ -85,26 +110,56 @@ async function setup() {
   transacoes.push(...result);
   transacoes.forEach(renderizarTransacao);
   atualizarValor();
+  BotaoMaisMenos();
 }
 
 async function novaTransacao(ev) {
   ev.preventDefault();
 
+  const id = document.querySelector("#id").value;
   const name = document.querySelector("#nome").value;
   const amount = parseFloat(document.querySelector("#valor").value);
 
-  const response = await fetch("http://localhost:3000/transactions", {
-    method: "POST",
-    body: JSON.stringify({ name, amount }),
-    headers: { "content-type": "application/json" },
-  });
+  if (id) {
+    const response = await fetch(`http://localhost:3000/transactions/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({ name, amount }),
+      headers: { "content-Type": "application/json" },
+    });
 
-  const transacao = await response.json();
-  transacoes.push(transacao);
-  renderizarTransacao(transacao);
+    const transacao = await response.json();
+    const indexToRemove = transacoes.findIndex((i) => i.id == id);
+    transacoes.splice(indexToRemove, 1, transacao);
+    document.querySelector(`#transacoes-${id}`).remove();
+    renderizarTransacao(transacao);
+  } else {
+    const response = await fetch("http://localhost:3000/transactions", {
+      method: "POST",
+      body: JSON.stringify({ name, amount }),
+      headers: { "content-type": "application/json" },
+    });
+
+    const transacao = await response.json();
+    transacoes.push(transacao);
+    renderizarTransacao(transacao);
+  }
 
   ev.target.reset();
   atualizarValor();
+}
+
+function BotaoMaisMenos() {
+  const inputValor = document.getElementById("valor");
+  const btnMenos = document.querySelector(".btn-menos");
+  const btnMais = document.querySelector(".btn-plus");
+
+  btnMenos.addEventListener("click", () => {
+    inputValor.stepDown();
+  });
+
+  btnMais.addEventListener("click", () => {
+    inputValor.stepUp();
+  });
 }
 
 document.addEventListener("DOMContentLoaded", setup);
